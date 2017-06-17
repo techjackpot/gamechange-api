@@ -22,6 +22,7 @@ var UserSchema = new mongoose.Schema({
     Addresses: [schemaTypes.addressSchema],
     DOB: schemaTypes.dobSchema,
     Gender: schemaTypes.genderSchema,
+    Role: schemaTypes.roleSchema,
     // At some point we'll need to move this somewhere else i think.
     DeviceID: {
         GCM: String,
@@ -73,6 +74,10 @@ var PermissionsSchema = new mongoose.Schema({
         default: permissions.getDefaultSchema(permissionsEnum.Private, false)
     },
     Gender: {
+        type: permissions.getAccesibilitySchema(),
+        default: permissions.getDefaultSchema(permissionsEnum.Private, false)
+    },
+    Role: {
         type: permissions.getAccesibilitySchema(),
         default: permissions.getDefaultSchema(permissionsEnum.Private, false)
     }

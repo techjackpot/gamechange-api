@@ -67,6 +67,12 @@ dobSchema.pre('save', function(next) {
     next();
 });
 
+var roleSchema = {
+    type: String,
+    enum: ["Choose", "Student", "Teacher", "Convenor"],
+    default: 'Student'
+};
+
 module.exports = {
     nameSchema: nameSchema,
     emailSchema: emailSchema,
@@ -74,5 +80,6 @@ module.exports = {
     passwordSchema: passwordSchema,
     genderSchema: genderSchema,
     addressSchema: addressSchema,
-    dobSchema: dobSchema
+    dobSchema: dobSchema,
+    roleSchema: roleSchema
 }
