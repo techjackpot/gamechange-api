@@ -30,10 +30,11 @@ var server_options = {
 
 var routes = require('./routes/index');
 
-var users = require('./routes/authentication/connect');
-var signin = require('./routes/authentication/signin');
-var signup = require('./routes/authentication/signup');
+var user_connect = require('./routes/authentication/connect');
+var user_login = require('./routes/authentication/login');
+var user_register = require('./routes/authentication/register');
 var tokenVerification = require('./routes/authentication/verifytoken');
+var user = require('./routes/user');
 
 
 
@@ -61,7 +62,7 @@ app.use('/static', express.static('public'));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-chaos-token");
   next();
 });
 
@@ -69,10 +70,11 @@ app.use(function(req, res, next) {
 // TODO: MAKE A ROUTES.JS AND PUT ALL THIS CRAP IN IT
 app.use('/', routes);
 
-app.use('/api', users);
-app.use('/api', signin);
-app.use('/api', signup);
+app.use('/api', user_connect);
+app.use('/api', user_login);
+app.use('/api', user_register);
 app.use('/api/user', tokenVerification);
+app.use('/api/user', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

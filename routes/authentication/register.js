@@ -23,7 +23,7 @@ var emailConfirmation = require('../../libs/emailconfirmation');
 // Instead we should use async.each to build a query, then use that query to make one big call to the database. This will make sure 
 // we only use 2 queries per signup request.
 
-router.route("/signup")
+router.route("/register")
     .post(function(req, res) {
         var response = {};
 
@@ -233,6 +233,7 @@ router.route("/signup")
                     if (ExistingUser == -1) {
                         var newUser = new User();
                         newUser.ProfileData = [];
+                        newUser.Role = req.body.Role;
                         for (var i = 0; i < savedPassports.length; i++) {
 
 
