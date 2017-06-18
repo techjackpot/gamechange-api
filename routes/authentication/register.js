@@ -234,6 +234,8 @@ router.route("/register")
                         var newUser = new User();
                         newUser.ProfileData = [];
                         newUser.Role = req.body.Role;
+                        newUser.DisplayName = req.body.DisplayName;
+                        newUser.Name = { First: req.body.Name.First, Last: req.body.Name.Last };
                         for (var i = 0; i < savedPassports.length; i++) {
 
 
