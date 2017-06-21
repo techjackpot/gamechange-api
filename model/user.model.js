@@ -23,19 +23,23 @@ var UserSchema = new mongoose.Schema({
     DOB: schemaTypes.dobSchema,
     Gender: schemaTypes.genderSchema,
     Role: schemaTypes.roleSchema,
-    // At some point we'll need to move this somewhere else i think.
-    DeviceID: {
-        GCM: String,
-        APN: String
-    },
-    ConfirmedEmail: {
+    IsConvenor: {
         type: Boolean,
         default: false
     },
-    SecondaryUsers: [{
-        type: mongoose.Schema.ObjectId,
-        ref: "Users"
-    }]
+    // At some point we'll need to move this somewhere else i think.
+    // DeviceID: {
+    //     GCM: String,
+    //     APN: String
+    // },
+    // ConfirmedEmail: {
+    //     type: Boolean,
+    //     default: false
+    // },
+    // SecondaryUsers: [{
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: "Users"
+    // }]
 }, {
     timestamps: true
 });
@@ -59,27 +63,31 @@ var PermissionsSchema = new mongoose.Schema({
     },
     Name: {
         type: permissions.getAccesibilitySchema(),
-        default: permissions.getDefaultSchema(permissionsEnum.Private, false)
+        default: permissions.getDefaultSchema(permissionsEnum.Public, false)
     },
     Email: {
         type: permissions.getAccesibilitySchema(),
-        default: permissions.getDefaultSchema(permissionsEnum.Private, false)
+        default: permissions.getDefaultSchema(permissionsEnum.Public, false)
     },
     Addresses: {
         type: permissions.getAccesibilitySchema(),
-        default: permissions.getDefaultSchema(permissionsEnum.Private, false)
+        default: permissions.getDefaultSchema(permissionsEnum.Public, false)
     },
     DOB: {
         type: permissions.getAccesibilitySchema(),
-        default: permissions.getDefaultSchema(permissionsEnum.Private, false)
+        default: permissions.getDefaultSchema(permissionsEnum.Public, false)
     },
     Gender: {
         type: permissions.getAccesibilitySchema(),
-        default: permissions.getDefaultSchema(permissionsEnum.Private, false)
+        default: permissions.getDefaultSchema(permissionsEnum.Public, false)
     },
     Role: {
         type: permissions.getAccesibilitySchema(),
-        default: permissions.getDefaultSchema(permissionsEnum.Private, false)
+        default: permissions.getDefaultSchema(permissionsEnum.Public, false)
+    },
+    IsConvenor: {
+        type: permissions.getAccesibilitySchema(),
+        default: permissions.getDefaultSchema(permissionsEnum.Public, false)
     }
 
 }, {
