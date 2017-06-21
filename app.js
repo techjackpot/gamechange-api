@@ -35,6 +35,7 @@ var user_login = require('./routes/authentication/login');
 var user_register = require('./routes/authentication/register');
 var tokenVerification = require('./routes/authentication/verifytoken');
 var user = require('./routes/user');
+var classes = require('./routes/classes');
 
 
 
@@ -75,6 +76,7 @@ app.use('/api', user_login);
 app.use('/api', user_register);
 app.use('/api/user', tokenVerification);
 app.use('/api/user', user);
+app.use('/api/user/classes', classes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

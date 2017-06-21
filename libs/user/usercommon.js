@@ -134,6 +134,51 @@ UserCommon.checkRelation = function(UserID, OtherUserID, callback) {
 
 }
 
+
+UserCommon.getAllUsers = function(RequesterUserID, callback) {
+
+    async.waterfall([
+        async.apply(UserCommon.checkExists, RequesterUserID),
+        UserCommon.checkPermissionExists,
+        function(permission, userObj, callback) {
+            var selectionString = "";
+
+            permission = permission.toObject();
+            for (var key in permission) {
+
+                if (!permission.hasOwnProperty(key) || permission[key].Permission === undefined)
+                    continue;
+
+                selectionString += key + " ";
+            }
+
+            if (selectionString.length == 0)
+                return callback();
+
+            user
+                .find()
+                .select(selectionString)
+                .exec(function(err, docs) {
+                    if (err)
+                        return callback(err);
+
+                    if (docs) {
+                        return callback(null, docs);
+                    } else
+                        return callback("No User Found");
+                });
+        },
+
+    ], function(err, users) {
+        if (err)
+            return callback(err);
+
+        callback(null, users);
+    });
+
+}
+
+
 UserCommon.getUser = function(RequesterUserID, UserID, callback) {
 
     async.waterfall([

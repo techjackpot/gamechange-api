@@ -236,6 +236,7 @@ router.route("/register")
                         newUser.Role = req.body.Role;
                         newUser.DisplayName = req.body.DisplayName;
                         newUser.Name = { First: req.body.Name.First, Last: req.body.Name.Last };
+                        newUser.IsConvenor = req.body.IsConvenor;
                         for (var i = 0; i < savedPassports.length; i++) {
 
 
