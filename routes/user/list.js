@@ -14,11 +14,10 @@ router.route("/list")
 	async.waterfall([
 
 			function(callback) {
-                userCommon.getAllUsers(req.decoded.UserId, function (err, users) {
+                userCommon.getAllUsers(req.decoded.UserId, req.body.ids || [], function (err, users) {
                     if (err) {
                         return callback(err)
                     }
-
                     callback(null, users);
                 });	
 			}

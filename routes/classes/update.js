@@ -14,20 +14,27 @@ router.route("/update")
 .post(function(req, res, next) {
 	async.waterfall([
 			function(callback) {
-				Classes.find().exec(function (err, docs) {
-					if (err) {
+				Classes.findOne({ _id: req.body._id }).exec(function (err, doc) {
+					if (err || !doc) {
 						var errString = "Something bad happened";
 						var errObject = helper.constructErrorResponse(ERR_CODE.UNKNOWN, errString, 500);
 						debug(errString);
-						callback(errObject);
-					} else if (docs.length > 0) {
-						callback(null, docs);
-
+						return callback(errObject);
 					} else {
-
-						callback(null, []);
+						return callback(null, doc);
 					}
 				});
+			},
+			function(classInfo, callback) {
+				for(var key in req.body) {
+					if(key == '_id') continue;
+					classInfo[key] = req.body[key];
+				}
+				classInfo.save(function(err, doc) {
+	        if (err)
+	          return callback(err);
+	        return callback(null, doc);
+        });
 			}
 		],
 		function(err, result) {
@@ -37,7 +44,7 @@ router.route("/update")
 
 			JSONresponse.err = err;
 			if (!err) {
-				JSONresponse.Classes = result;
+				JSONresponse.Class = result;
 			}
 
 			res.status(StatusCode).json(JSONresponse);

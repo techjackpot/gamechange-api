@@ -3,29 +3,32 @@ var jwt = require('jsonwebtoken');
 var async = require('async');
 var helper = require('../../additional-code/helperfunctions');
 var Classes = require('../../model/classes/class.model').Classes;
+var Groups = require('../../model/classes/class.model').Groups;
+var Tasks = require('../../model/tasks/task.model').Tasks;
 var router = express.Router();
 var debug = require('debug')('classes');
 var ERR_CODE = require('../../error_codes');
 
 
 
-router.route("/get")
+router.route("/list")
 
 .post(function(req, res, next) {
 	async.waterfall([
 			function(callback) {
-				if(!req.body._id) return callback(null, null);
-				Classes.findOne({ _id: req.body._id }).exec(function (err, doc) {
+				var class_id = req.body.class_id;
+				Tasks.find({ "Class": class_id }).exec(function (err, docs) {
 					if (err) {
 						var errString = "Something bad happened";
 						var errObject = helper.constructErrorResponse(ERR_CODE.UNKNOWN, errString, 500);
 						debug(errString);
-						return callback(errObject);
-					}
-					if (doc) {
-						return callback(null, doc);
+						callback(errObject);
+					} else if (docs.length > 0) {
+						callback(null, docs);
+
 					} else {
-						return callback(null, null);
+
+						callback(null, []);
 					}
 				});
 			}
@@ -37,7 +40,7 @@ router.route("/get")
 
 			JSONresponse.err = err;
 			if (!err) {
-				JSONresponse.Class = result;
+				JSONresponse.Tasks = result;
 			}
 
 			res.status(StatusCode).json(JSONresponse);
