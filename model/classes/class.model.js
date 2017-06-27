@@ -1,27 +1,77 @@
 var mongoose = require("mongoose");
 
-var Schema = new mongoose.Schema({
-	Name: {
-		type: String,
-		required: true,
-		unique: true,
-		index: true
-	},
-	Users: [{
-		type: mongoose.Schema.ObjectId,
-		ref: 'Users'
-	}],
-	DateTime: {
-		type: String,
-		default: ''
+var groupSchema = new mongoose.Schema({
+		Title: {
+			type: String,
+			required: true
+		},
+		Class: {
+			type: mongoose.Schema.ObjectId,
+			ref: 'Classes',
+			unique: true
+		}
+	}, {
+	  timestamps: true,
+	  autoIndex: false
 	}
-}, {
-	timestamps: true
-});
+);
+var groupModelSchema = mongoose.model('Groups', groupSchema, 'Groups');
 
+var groupstudentSchema = new mongoose.Schema({
+		Group: {
+			type: mongoose.Schema.ObjectId,
+			ref: 'Groups'
+		},
+		Class: {
+			type: mongoose.Schema.ObjectId,
+			ref: 'Classes'
+		},
+		Student: {
+			type: mongoose.Schema.ObjectId,
+			ref: 'Users'
+		}
+	}, {
+      timestamps: true
+  }
+);
+var groupstudentModelSchema = mongoose.model('GroupStudents', groupstudentSchema, 'GroupStudents');
 
-var schema = mongoose.model('Class', Schema, 'Classes');
+var classSchema = new mongoose.Schema({
+		Name: {
+			type: String,
+			required: true,
+			unique: true,
+			index: true
+		},
+		Teachers: [{
+			type: mongoose.Schema.ObjectId,
+			ref: 'Users'
+		}],
+		Students: [{
+			type: mongoose.Schema.ObjectId,
+			ref: 'Users'
+		}],
+		Groups: [{
+			type: mongoose.Schema.ObjectId,
+			ref: 'Groups'
+		}],
+		Tasks: [{
+			type: mongoose.Schema.ObjectId,
+			ref: 'Tasks'
+		}],
+		DateTime: {
+			type: String,
+			default: ''
+		}
+	}, {
+		timestamps: true
+	}
+);
+
+var classModelSchema = mongoose.model('Classes', classSchema, 'Classes');
 
 module.exports = {
-	Classes: schema
+	Classes: classModelSchema,
+	Groups: groupModelSchema,
+	GroupStudents: groupstudentModelSchema
 }

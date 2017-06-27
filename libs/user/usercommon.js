@@ -135,7 +135,7 @@ UserCommon.checkRelation = function(UserID, OtherUserID, callback) {
 }
 
 
-UserCommon.getAllUsers = function(RequesterUserID, callback) {
+UserCommon.getAllUsers = function(RequesterUserID, ids, callback) {
 
     async.waterfall([
         async.apply(UserCommon.checkExists, RequesterUserID),
@@ -155,18 +155,33 @@ UserCommon.getAllUsers = function(RequesterUserID, callback) {
             if (selectionString.length == 0)
                 return callback();
 
-            user
-                .find()
-                .select(selectionString)
-                .exec(function(err, docs) {
-                    if (err)
-                        return callback(err);
+            if(ids.length==0) {
+                user
+                    .find()
+                    .select(selectionString)
+                    .exec(function(err, docs) {
+                        if (err)
+                            return callback(err);
 
-                    if (docs) {
-                        return callback(null, docs);
-                    } else
-                        return callback("No User Found");
-                });
+                        if (docs) {
+                            return callback(null, docs);
+                        } else
+                            return callback("No User Found");
+                    });
+            } else {
+                user
+                    .find({ _id: { $in: ids }})
+                    .select(selectionString)
+                    .exec(function(err, docs) {
+                        if (err)
+                            return callback(err);
+
+                        if (docs) {
+                            return callback(null, docs);
+                        } else
+                            return callback("No User Found");
+                    });
+            }
         },
 
     ], function(err, users) {

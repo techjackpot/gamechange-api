@@ -15,10 +15,9 @@ router.route("/create")
 	async.waterfall([
 			function(callback) {
 				var newClass = new Classes();
-				console.log(req.body);
 				newClass.Name = req.body.Name;
 				newClass.DateTime = req.body.DateTime;
-				newClass.Users = req.body.Users;
+				newClass.Teachers = req.body.Teachers;
 				newClass.save(function(err, doc) {
 					if (err) {
 
