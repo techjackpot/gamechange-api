@@ -21,18 +21,21 @@ router.route("/uploadprofilepicture")
 					return res.status(400).send('No files were uploaded.');
 				}
  				var Profile = req.files.Profile;
-				Profile.mv('/usr/src/app/public/profiles/' + req.decoded.UserId + '.png', function(err) {
+ 				var timestamp = new Date().getTime();
+ 				var fname = 'avatars/' + req.decoded.UserId + '_' + timestamp + '.png';
+				Profile.mv('public/' + fname, function(err) {
+					console.log(err);
 					if (err) {
 						return res.status(500).send(err);
 					}
 
-	                userCommon.updateUser(req.decoded.UserId, { "Data": { "DisplayPicture": 'profiles/' + req.decoded.UserId + '.png' } }, function (err) {
-	                    if (err) {
-	                        return callback(err)
-	                    }
+          userCommon.updateUser(req.decoded.UserId, { "Data": { "DisplayPicture": fname } }, function (err) {
+            if (err) {
+              return callback(err)
+            }
 
-	                    callback(null, 'profiles/' + req.decoded.UserId + '.png');
-	                });	
+            callback(null, fname);
+          });	
 				});
 			}
 		],

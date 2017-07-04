@@ -62,6 +62,10 @@ var classSchema = new mongoose.Schema({
 		DateTime: {
 			type: String,
 			default: ''
+		},
+		Room: {
+			type: String,
+			default: ''
 		}
 	}, {
 		timestamps: true

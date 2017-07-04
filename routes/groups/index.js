@@ -4,8 +4,7 @@ var router = express.Router();
 
 router.use('/', require('./list'));
 router.use('/', require('./create'));
-// router.use('/', require('./delete'));
-// router.use('/', require('./update'));
+router.use('/', require('./movestudent'));
 router.use('/', require('./get'));
 
 module.exports = router;

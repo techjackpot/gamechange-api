@@ -3,37 +3,28 @@ var jwt = require('jsonwebtoken');
 var async = require('async');
 var helper = require('../../additional-code/helperfunctions');
 var Classes = require('../../model/classes/class.model').Classes;
+var Groups = require('../../model/classes/class.model').Groups;
+var GroupStudents = require('../../model/classes/class.model').GroupStudents;
 var router = express.Router();
 var debug = require('debug')('classes');
 var ERR_CODE = require('../../error_codes');
 
 
 
-router.route("/create")
+router.route("/movestudent")
 
 .post(function(req, res, next) {
 	async.waterfall([
 			function(callback) {
-				var newClass = new Classes();
-				newClass.Name = req.body.Name;
-				newClass.Room = req.body.Room;
-				newClass.DateTime = req.body.DateTime;
-				newClass.Teachers = req.body.Teachers;
-				newClass.save(function(err, doc) {
+				GroupStudents.update({ Class: req.body.class_id, Student: req.body.student_id, Group: req.body.from_group }, { Group: req.body.to_group }).exec(function (err) {
 					if (err) {
-
-						var errString = "Something Bad Happened";
+						var errString = "Something bad happened";
 						var errObject = helper.constructErrorResponse(ERR_CODE.UNKNOWN, errString, 500);
-
-						if (err.name == "ValidationError") {
-							errString = "ClassName already exists";
-							errObject = helper.constructErrorResponse(ERR_CODE.UNKNOWN, errString);
-						}
-
-						debug(err);
+						debug(errString);
 						return callback(errObject);
+					} else {
+						return callback();
 					}
-					callback(null, doc);
 				});
 			}
 		],
@@ -44,7 +35,7 @@ router.route("/create")
 
 			JSONresponse.err = err;
 			if (!err) {
-				JSONresponse.Classes = result;
+				JSONresponse.Result = 'successfully moved student';
 			}
 
 			res.status(StatusCode).json(JSONresponse);
