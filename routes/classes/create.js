@@ -44,7 +44,7 @@ router.route("/create")
 
 			JSONresponse.err = err;
 			if (!err) {
-				JSONresponse.Classes = result;
+				JSONresponse.Class = result;
 			}
 
 			res.status(StatusCode).json(JSONresponse);
