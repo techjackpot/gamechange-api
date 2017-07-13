@@ -6,17 +6,28 @@ var Cards = require('../../model/cards/card.model').Cards;
 var router = express.Router();
 var debug = require('debug')('cards');
 var ERR_CODE = require('../../error_codes');
+var fs = require('fs');
 
 
 
-router.route("/create")
+router.route("/update")
 
 .post(function(req, res, next) {
 	var cardData = JSON.parse(req.body.cardData);
 	async.waterfall([
 			function(callback) {
+				Cards.findOne({ _id: cardData._id }).exec(function (err, doc) {
+					if(err) {
+						callback(err);
+					}
+					return callback(null, doc);
+				});
+			},
+			function(card, callback) {
+				console.log(req.files);
 				if (!req.files) {
-					return res.status(400).send('No files were uploaded.');
+					return callback(null, card);
+					//return res.status(400).send('No files were uploaded.');
 				}
  				var Picture = req.files.Picture;
  				var timestamp = new Date().getTime();
@@ -25,19 +36,26 @@ router.route("/create")
 					if (err) {
 						return res.status(500).send(err);
 					}
-          return callback(null, fname);
+					fs.unlink('public/' + card.Picture, function(err) {
+						if(err) {
+							return callback(err);
+						}
+						card.Picture = fname;
+						card.save(function(err, doc) {
+			        if (err)
+			          return callback(err);
+			        return callback(null, doc);
+		        });
+					});
 				});
 			},
-			function(pictureUrl, callback) {
-
-				var card = new Cards();
+			function(card, callback) {
 
 				card.Title = cardData.Title;
 				card.Description = cardData.Description;
 				card.Type = cardData.Type;
 				card.Rarity = cardData.Rarity;
 				card.GoldCost = cardData.GoldCost;
-				card.Picture = pictureUrl;
 				card.Actions = cardData.Actions;
 				card.Creator = cardData.Creator;
 				card.Approved = false;

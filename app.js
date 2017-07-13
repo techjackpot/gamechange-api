@@ -84,6 +84,7 @@ app.use('/api/user/classes', classes);
 app.use('/api/classes/groups', groups);
 app.use('/api/students', students);
 app.use('/api/tasks', tasks);
+app.use('/api/cards', tokenVerification);
 app.use('/api/cards', cards);
 
 // catch 404 and forward to error handler

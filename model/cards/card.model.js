@@ -7,11 +7,9 @@ var keywordSchema = new mongoose.Schema({
 var cardSchema = new mongoose.Schema({
 		Title: {
 			type: String,
-			required: true
 		},
 		Description: {
 			type: String,
-			required: true
 		},
 		Picture: {
 			type: String,
@@ -52,8 +50,16 @@ var cardSchema = new mongoose.Schema({
 			KeywordValue: {
 				type: Number,
 				default: 1
+			},
+			Description: {
+				type: String,
+				default: ''
 			}
 		}],
+		Approved: {
+			type: Boolean,
+			default: false
+		}
 	}, {
 	  timestamps: true,
 	  autoIndex: false
