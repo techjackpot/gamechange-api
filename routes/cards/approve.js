@@ -4,31 +4,34 @@ var async = require('async');
 var helper = require('../../additional-code/helperfunctions');
 var Cards = require('../../model/cards/card.model').Cards;
 var router = express.Router();
-var debug = require('debug')('cards');
+var debug = require('debug')('Cards');
 var ERR_CODE = require('../../error_codes');
 
 
 
-router.route("/list")
+router.route("/approve")
 
 .post(function(req, res, next) {
 	async.waterfall([
 			function(callback) {
-				//var user_id = req.body.Creator || req.decoded.UserId;
-				Cards.find(req.body).populate('Creator').exec(function (err, docs) {
-					if (err) {
+				Cards.findOne({ _id: req.body.card_id }).exec(function (err, doc) {
+					if (err || !doc) {
 						var errString = "Something bad happened";
 						var errObject = helper.constructErrorResponse(ERR_CODE.UNKNOWN, errString, 500);
 						debug(errString);
-						callback(errObject);
-					} else if (docs.length > 0) {
-						callback(null, docs);
-
+						return callback(errObject);
 					} else {
-
-						callback(null, []);
+						return callback(null, doc);
 					}
 				});
+			},
+			function(card, callback) {
+				card.Approved = true;
+				card.save(function(err, doc) {
+	        if (err)
+	          return callback(err);
+	        return callback(null, doc);
+        });
 			}
 		],
 		function(err, result) {
@@ -38,7 +41,7 @@ router.route("/list")
 
 			JSONresponse.err = err;
 			if (!err) {
-				JSONresponse.Cards = result;
+				JSONresponse.Card = result;
 			}
 
 			res.status(StatusCode).json(JSONresponse);
