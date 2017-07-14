@@ -26,12 +26,24 @@ router.route("/approve")
 				});
 			},
 			function(card, callback) {
-				card.Approved = true;
+				card.Approved = req.body.Approved;
 				card.save(function(err, doc) {
 	        if (err)
 	          return callback(err);
 	        return callback(null, doc);
         });
+			},
+			function(card, callback) {
+				Cards.findOne({ _id: card._id }).populate('Creator').exec(function (err, doc) {
+					if (err || !doc) {
+						var errString = "Something bad happened";
+						var errObject = helper.constructErrorResponse(ERR_CODE.UNKNOWN, errString, 500);
+						debug(errString);
+						return callback(errObject);
+					} else {
+						return callback(null, doc);
+					}
+				});
 			}
 		],
 		function(err, result) {

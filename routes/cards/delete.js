@@ -4,7 +4,7 @@ var async = require('async');
 var helper = require('../../additional-code/helperfunctions');
 var Cards = require('../../model/cards/card.model').Cards;
 var router = express.Router();
-var debug = require('debug')('classes');
+var debug = require('debug')('cards');
 var ERR_CODE = require('../../error_codes');
 var fs = require('fs');
 
