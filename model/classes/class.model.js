@@ -43,6 +43,10 @@ var classSchema = new mongoose.Schema({
 			unique: true,
 			index: true
 		},
+		Description: {
+			type: String,
+			default: ''
+		},
 		Teachers: [{
 			type: mongoose.Schema.ObjectId,
 			ref: 'Users'
@@ -63,10 +67,18 @@ var classSchema = new mongoose.Schema({
 			type: String,
 			default: ''
 		},
+		TotalWeeks: {
+			type: Number,
+			default: 0
+		},
 		Room: {
 			type: String,
 			default: ''
-		}
+		},
+		Subject: {
+			type: String,
+			default: ''
+		},
 	}, {
 		timestamps: true
 	}

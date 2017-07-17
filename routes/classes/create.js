@@ -16,9 +16,12 @@ router.route("/create")
 			function(callback) {
 				var newClass = new Classes();
 				newClass.Name = req.body.Name;
+				newClass.Description = req.body.Description;
 				newClass.Room = req.body.Room;
 				newClass.DateTime = req.body.DateTime;
+				newClass.TotalWeeks = req.body.TotalWeeks;
 				newClass.Teachers = req.body.Teachers;
+				newClass.Subject = req.body.Subject;
 				newClass.save(function(err, doc) {
 					if (err) {
 
