@@ -79,6 +79,70 @@ var classSchema = new mongoose.Schema({
 			type: String,
 			default: ''
 		},
+		Collection: [{
+			type: mongoose.Schema.ObjectId,
+			ref: 'Cards'
+		}],
+		PickUp: [{
+			type: mongoose.Schema.ObjectId,
+			ref: 'Cards'
+		}],
+		Players: [{
+			Player: {
+				type: mongoose.Schema.ObjectId,
+				ref: 'Users'
+			},
+			Hand: [{
+				type: mongoose.Schema.ObjectId,
+				ref: 'Cards'
+			}],
+			Stack: [{
+				type: mongoose.Schema.ObjectId,
+				ref: 'Cards'
+			}],
+			Collection: [{
+				type: mongoose.Schema.ObjectId,
+				ref: 'Cards'
+			}],
+			Drawn: {
+				type: Boolean,
+				default: false,
+			},
+			Gold: {
+				type: Number,
+				default: 0
+			},
+			Point: {
+				type: Number,
+				default: 0
+			}
+		}],
+		CardHistory: [{
+			Source: {
+				type: mongoose.Schema.ObjectId,
+				ref: 'Users'
+			},
+			Target: [{
+				type: mongoose.Schema.ObjectId,
+				ref: 'Users'
+			}],
+			Card: {
+				type: mongoose.Schema.ObjectId,
+				ref: 'Cards'
+			},
+			Resolved: {
+				type: Boolean,
+				default: false
+			}
+		}],
+		Weeks: {
+			type: Number,
+			default: 1
+		},
+		Status: {
+			type: String, // Started, Stopped, RollCall
+			default: 'Stopped'
+		}
 	}, {
 		timestamps: true
 	}

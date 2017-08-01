@@ -7,5 +7,6 @@ router.use('/', require('./create'));
 router.use('/', require('./delete'));
 router.use('/', require('./update'));
 router.use('/', require('./get'));
+router.use('/', require('./search'));
 
 module.exports = router;

@@ -27,6 +27,14 @@ var UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    Points: {
+        type: Number,
+        default: 0
+    },
+    Golds: {
+        type: Number,
+        default: 0
+    }
     // At some point we'll need to move this somewhere else i think.
     // DeviceID: {
     //     GCM: String,

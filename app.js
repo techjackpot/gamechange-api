@@ -36,6 +36,7 @@ var user_register = require('./routes/authentication/register');
 var tokenVerification = require('./routes/authentication/verifytoken');
 var user = require('./routes/user');
 var classes = require('./routes/classes');
+var games = require('./routes/games');
 var groups = require('./routes/groups');
 var students = require('./routes/students');
 var tasks = require('./routes/tasks');
@@ -84,6 +85,7 @@ app.use('/api/user/classes', classes);
 app.use('/api/classes/groups', groups);
 app.use('/api/students', students);
 app.use('/api/tasks', tasks);
+app.use('/api/games', games);
 app.use('/api/cards', tokenVerification);
 app.use('/api/cards', cards);
 
