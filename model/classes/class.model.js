@@ -122,17 +122,17 @@ var classSchema = new mongoose.Schema({
 				type: mongoose.Schema.ObjectId,
 				ref: 'Users'
 			},
-			Target: [{
+			Target: [[{
 				type: mongoose.Schema.ObjectId,
 				ref: 'Users'
-			}],
+			}]],
 			Card: {
 				type: mongoose.Schema.ObjectId,
 				ref: 'Cards'
 			},
-			Resolved: {
-				type: Boolean,
-				default: false
+			UnResolved: {
+				type: Number,
+				default: 0
 			}
 		}],
 		Weeks: {
