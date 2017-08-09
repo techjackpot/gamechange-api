@@ -37,7 +37,7 @@ router.route("/updatemarkhistory")
 								}
 								history.save(function(err, doc) {
 									result.push(doc);
-									if(result.length == req.body.length) {
+									if(result.length == data.length) {
 										resolve();
 									}
 								});
