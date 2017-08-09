@@ -41,6 +41,7 @@ var groups = require('./routes/groups');
 var students = require('./routes/students');
 var tasks = require('./routes/tasks');
 var cards = require('./routes/cards');
+var marks = require('./routes/marks');
 
 
 
@@ -88,6 +89,7 @@ app.use('/api/tasks', tasks);
 app.use('/api/games', games);
 app.use('/api/cards', tokenVerification);
 app.use('/api/cards', cards);
+app.use('/api/marks', marks);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

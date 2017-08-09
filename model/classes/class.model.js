@@ -133,6 +133,10 @@ var classSchema = new mongoose.Schema({
 			UnResolved: {
 				type: Number,
 				default: 0
+			},
+			Week: {
+				type: Number,
+				default: 1
 			}
 		}],
 		Weeks: {
