@@ -87,6 +87,18 @@ var classSchema = new mongoose.Schema({
 			type: mongoose.Schema.ObjectId,
 			ref: 'Cards'
 		}],
+		Player_CollectionSize: {
+			type: Number,
+			default: 0
+		},
+		Player_StackSize: {
+			type: Number,
+			default: 10
+		},
+		Player_HandSize: {
+			type: Number,
+			default: 5
+		},
 		Players: [{
 			Player: {
 				type: mongoose.Schema.ObjectId,
