@@ -15,8 +15,14 @@ var UserSchema = new mongoose.Schema({
             refPath: 'PassportCollection.Kind'
         }
     }],
-    DisplayName: String,
-    DisplayPicture: String,
+    DisplayName: {
+        type: String,
+        default: ''
+    },
+    DisplayPicture: {
+        type: String,
+        default: ''
+    },
     Name: schemaTypes.nameSchema,
     Email: schemaTypes.emailSchema,
     Addresses: [schemaTypes.addressSchema],
