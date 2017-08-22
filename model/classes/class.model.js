@@ -87,6 +87,10 @@ var classSchema = new mongoose.Schema({
 			type: mongoose.Schema.ObjectId,
 			ref: 'Cards'
 		}],
+		Player_PickupPileSize: {
+			type: Number,
+			default: 5
+		},
 		Player_CollectionSize: {
 			type: Number,
 			default: 0
