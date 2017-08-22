@@ -131,6 +131,10 @@ var classSchema = new mongoose.Schema({
 			Point: {
 				type: Number,
 				default: 0
+			},
+			Defence: {
+				type: Number,
+				default: 0
 			}
 		}],
 		CardHistory: [{

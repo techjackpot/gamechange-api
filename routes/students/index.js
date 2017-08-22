@@ -10,5 +10,6 @@ router.use('/', require('./getfriend'));
 router.use('/', require('./sendfriendrequest'));
 router.use('/', require('./acceptrequest'));
 router.use('/', require('./removefriend'));
+router.use('/', require('./buildfriendconnection'));
 
 module.exports = router;
