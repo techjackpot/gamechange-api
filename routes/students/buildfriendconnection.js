@@ -16,11 +16,22 @@ router.route("/buildfriendconnection")
 			function(callback) {
 				if(!req.body.from) callback('Sender not provided');
 				if(!req.body.to) callback('Receiver not provided');
-				var newFriend = new Friends();
-				newFriend.From = req.body.from;
-				newFriend.To = req.body.to;
-				newFriend.Approved = true;
-				newFriend.save(function(err, doc) {
+				Friends.findOne({ $or: [{ "From": req.body.from, "To": req.body.to }, { "To": req.body.From, "From": req.body.To }] }).exec(function(err, doc) {
+					if(err) callback(err);
+					if(doc) {
+						doc.Approved = true;
+						callback(null, doc);
+					} else {
+						var newFriend = new Friends();
+						newFriend.From = req.body.from;
+						newFriend.To = req.body.to;
+						newFriend.Approved = true;
+						callback(null, newFriend);
+					}
+				});
+			},
+			function(connection, callback) {
+				connection.save(function(err, doc) {
 					if(err) callback(err);
 					callback(null, doc);
 				});
