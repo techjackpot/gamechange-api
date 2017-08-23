@@ -143,8 +143,14 @@ var classSchema = new mongoose.Schema({
 				ref: 'Users'
 			},
 			Target: [[{
-				type: mongoose.Schema.ObjectId,
-				ref: 'Users'
+				Player: {
+					type: mongoose.Schema.ObjectId,
+					ref: 'Users'
+				},
+				Confirmed: {
+					type: Boolean,
+					default: false
+				}
 			}]],
 			Card: {
 				type: mongoose.Schema.ObjectId,
