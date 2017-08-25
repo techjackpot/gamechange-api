@@ -142,16 +142,18 @@ var classSchema = new mongoose.Schema({
 				type: mongoose.Schema.ObjectId,
 				ref: 'Users'
 			},
-			Target: [[{
-				Player: {
+			Target: [
+				[{
 					type: mongoose.Schema.ObjectId,
 					ref: 'Users'
-				},
-				Confirmed: {
-					type: Boolean,
-					default: false
-				}
-			}]],
+				}]
+			],
+			TargetLeft: [
+				[{
+					type: mongoose.Schema.ObjectId,
+					ref: 'Users'
+				}]
+			],
 			Card: {
 				type: mongoose.Schema.ObjectId,
 				ref: 'Cards'
