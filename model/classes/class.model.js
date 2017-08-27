@@ -162,6 +162,14 @@ var classSchema = new mongoose.Schema({
 				type: Number,
 				default: 0
 			},
+			Delay: {
+				type: Number,
+				default: 0
+			},
+			Repeat: {
+				type: Number,
+				default: 1
+			},
 			Week: {
 				type: Number,
 				default: 1
