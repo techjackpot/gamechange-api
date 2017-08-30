@@ -170,6 +170,10 @@ var classSchema = new mongoose.Schema({
 				type: Number,
 				default: 1
 			},
+			StartAt: {
+				type: Number,
+				default: 0
+			},
 			Week: {
 				type: Number,
 				default: 1
