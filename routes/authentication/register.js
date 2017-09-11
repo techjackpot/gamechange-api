@@ -284,7 +284,10 @@ router.route("/register")
                         });
                     } else {
                         debug("Skipping User creation as user already exists");
-                        nextCallback(null, ExistingUser);
+                        var errString = "Could not create user, email already registered";
+                        var errObject = helper.constructErrorResponse(ERR_CODE.USER_CREATION_FAILED, errString);
+                        debug(errString);
+                        nextCallback(errObject);
                     }
 
 
