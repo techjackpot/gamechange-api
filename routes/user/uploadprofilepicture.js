@@ -9,7 +9,6 @@ var ERR_CODE = require('../../error_codes');
 var moment = require('moment');
 var userCommon = require('../../libs/user/usercommon');
 
-
 router.route("/uploadprofilepicture")
 
 .post(function(req, res, next) {
@@ -17,18 +16,28 @@ router.route("/uploadprofilepicture")
 
 			function(callback) {
 
-				if (!req.files) {
-					return res.status(400).send('No files were uploaded.');
+				if(!req.body.Profile) {
+					return res.status(400).send('No file were uploaded.');
 				}
- 				var Profile = req.files.Profile;
+
+			  var matches = req.body.Profile.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+			    response = {};
+
+			  if (matches.length !== 3) {
+			    return new Error('Invalid input string');
+			  }
+
+			  response.type = matches[1];
+			  response.data = new Buffer(matches[2], 'base64');
+
  				var timestamp = new Date().getTime();
  				var fname = 'avatars/' + req.decoded.UserId + '_' + timestamp + '.png';
-				Profile.mv('public/' + fname, function(err) {
+
+				require("fs").writeFile('public/' + fname, response.data, 'base64', function(err) {
 					console.log(err);
-					if (err) {
+					if(err) {
 						return res.status(500).send(err);
 					}
-
           userCommon.updateUser(req.decoded.UserId, { "Data": { "DisplayPicture": fname } }, function (err) {
             if (err) {
               return callback(err)
@@ -54,7 +63,6 @@ router.route("/uploadprofilepicture")
 
 			res.status(StatusCode).json(JSONresponse);
 
-			//helper.SendStandardJSON(res, err, result);
 		});
 });
 
