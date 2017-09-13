@@ -9,23 +9,27 @@ var ERR_CODE = require('../../error_codes');
 
 
 
-router.route("/addtype")
+router.route("/updatetype")
 
 .post(function(req, res, next) {
 	async.waterfall([
 			function(callback) {
-				var newMarkType = new MarkTypes();
-				newMarkType.Name = req.body.Name;
-				newMarkType.Description = req.body.Description;
-				newMarkType.Multiplier = req.body.Multiplier;
-				newMarkType.Weeks = req.body.Weeks;
-				newMarkType.MinValue = req.body.MinValue;
-				newMarkType.Class = req.body.Class;
-				newMarkType.save(function(err, doc) {
-					if (err) {
-						return callback(err);
+				MarkTypes.findOne({_id: req.body._id}).exec((err, marktype) => {
+					if(err) {
+						callback(err);
 					}
-					callback(null, doc);
+					marktype.Name = req.body.Name;
+					marktype.Description = req.body.Description;
+					marktype.Multiplier = req.body.Multiplier;
+					marktype.Weeks = req.body.Weeks;
+					marktype.MinValue = req.body.MinValue;
+					// marktype.Class = req.body.Class;
+					marktype.save(function(err, doc) {
+						if (err) {
+							return callback(err);
+						}
+						callback(null, doc);
+					});
 				});
 			}
 		],

@@ -9,6 +9,18 @@ var marktypeSchema = new mongoose.Schema({
 			type: String,
 			default: ''
 		},
+		Multiplier: {
+			type: Number,
+			default: 1.5
+		},
+		Weeks: {
+			type: Number,
+			default: 3
+		},
+		MinValue: {
+			type: Number,
+			default: 5
+		},
 		Class: {
 			type: mongoose.Schema.ObjectId,
 			ref: 'Classes'
