@@ -135,7 +135,21 @@ var classSchema = new mongoose.Schema({
 			Defence: {
 				type: Number,
 				default: 0
-			}
+			},
+			Multiplier: [{
+				MarkType: {
+					type: mongoose.Schema.ObjectId,
+					ref: 'MarkTypes'
+				},
+				Continuous: {
+					type: Number,
+					default: 0
+				},
+				Value: {
+					type: Number,
+					default: 0
+				}
+			}]
 		}],
 		CardHistory: [{
 			Source: {
