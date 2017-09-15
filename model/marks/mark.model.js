@@ -21,6 +21,10 @@ var marktypeSchema = new mongoose.Schema({
 			type: Number,
 			default: 5
 		},
+		ForGroup: {
+			type: Boolean,
+			default: false
+		},
 		Class: {
 			type: mongoose.Schema.ObjectId,
 			ref: 'Classes'

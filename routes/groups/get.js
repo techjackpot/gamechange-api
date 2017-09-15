@@ -68,7 +68,7 @@ router.route("/get")
 
 			JSONresponse.err = err;
 			if (!err) {
-				JSONresponse.Groups = result;
+				JSONresponse.Groups = result.sort((a,b) => a.Title.localeCompare(b.Title));
 			}
 
 			res.status(StatusCode).json(JSONresponse);

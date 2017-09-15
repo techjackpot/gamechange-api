@@ -21,6 +21,7 @@ router.route("/addtype")
 				newMarkType.Weeks = req.body.Weeks;
 				newMarkType.MinValue = req.body.MinValue;
 				newMarkType.Class = req.body.Class;
+				newMarkType.ForGroup = req.body.ForGroup;
 				newMarkType.save(function(err, doc) {
 					if (err) {
 						return callback(err);

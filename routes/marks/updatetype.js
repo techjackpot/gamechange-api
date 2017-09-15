@@ -23,6 +23,7 @@ router.route("/updatetype")
 					marktype.Multiplier = req.body.Multiplier;
 					marktype.Weeks = req.body.Weeks;
 					marktype.MinValue = req.body.MinValue;
+					marktype.ForGroup = req.body.ForGroup;
 					// marktype.Class = req.body.Class;
 					marktype.save(function(err, doc) {
 						if (err) {
