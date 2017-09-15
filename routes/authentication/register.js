@@ -237,6 +237,7 @@ router.route("/register")
                         newUser.DisplayName = req.body.DisplayName;
                         newUser.Name = { First: req.body.Name.First, Last: req.body.Name.Last };
                         newUser.IsConvenor = req.body.IsConvenor;
+                        newUser.DisplayPicture = 'avatars/default/man.jpg';
                         for (var i = 0; i < savedPassports.length; i++) {
 
 
