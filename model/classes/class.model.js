@@ -172,6 +172,16 @@ var classSchema = new mongoose.Schema({
 				type: mongoose.Schema.ObjectId,
 				ref: 'Cards'
 			},
+			Applied: [{
+				Targets: [{
+					type: mongoose.Schema.ObjectId,
+					ref: 'Users'
+				}],
+				Value: {
+					type: Number,
+					default: 0
+				}
+			}],
 			UnResolved: {
 				type: Number,
 				default: 0
