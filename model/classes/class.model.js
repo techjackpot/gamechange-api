@@ -182,6 +182,10 @@ var classSchema = new mongoose.Schema({
 					default: 0
 				}
 			}],
+			SpecificMarkTypes: [{
+				type: String,
+				default: ''
+			}],
 			UnResolved: {
 				type: Number,
 				default: 0
