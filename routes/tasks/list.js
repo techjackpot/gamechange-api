@@ -17,7 +17,7 @@ router.route("/list")
 	async.waterfall([
 			function(callback) {
 				var class_id = req.body.class_id;
-				Tasks.find({ "Class": class_id }).exec(function (err, docs) {
+				Tasks.find({ "Class": class_id }).sort({updatedAt: -1}).exec(function (err, docs) {
 					if (err) {
 						var errString = "Something bad happened";
 						var errObject = helper.constructErrorResponse(ERR_CODE.UNKNOWN, errString, 500);
