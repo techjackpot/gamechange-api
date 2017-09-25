@@ -3,6 +3,11 @@ var jwt = require('jsonwebtoken');
 var async = require('async');
 var helper = require('../../additional-code/helperfunctions');
 var Classes = require('../../model/classes/class.model').Classes;
+var Groups = require('../../model/classes/class.model').Groups;
+var GroupStudents = require('../../model/classes/class.model').GroupStudents;
+var Tasks = require('../../model/tasks/task.model').Tasks;
+var MarkTypes = require('../../model/marks/mark.model').MarkTypes;
+var MarkHistory = require('../../model/marks/mark.model').MarkHistory;
 var router = express.Router();
 var debug = require('debug')('classes');
 var ERR_CODE = require('../../error_codes');
@@ -21,6 +26,56 @@ router.route("/delete")
 				var errObject = helper.constructErrorResponse(ERR_CODE.UNKNOWN, errString);
 				debug(errString);
 				callback(errObject);
+			},
+			function(callback) {
+				Groups.deleteMany({
+					"Class": req.body._id
+				}).exec(function (err) {
+					if(err) {
+						return callback(err);
+					}
+					return callback(null);
+				})
+			},
+			function(callback) {
+				GroupStudents.deleteMany({
+					"Class": req.body._id
+				}).exec(function (err) {
+					if(err) {
+						return callback(err);
+					}
+					return callback(null);
+				})
+			},
+			function(callback) {
+				Tasks.deleteMany({
+					"Class": req.body._id
+				}).exec(function (err) {
+					if(err) {
+						return callback(err);
+					}
+					return callback(null);
+				})
+			},
+			function(callback) {
+				MarkTypes.deleteMany({
+					"Class": req.body._id
+				}).exec(function (err) {
+					if(err) {
+						return callback(err);
+					}
+					return callback(null);
+				})
+			},
+			function(callback) {
+				MarkHistory.deleteMany({
+					"Class": req.body._id
+				}).exec(function (err) {
+					if(err) {
+						return callback(err);
+					}
+					return callback(null);
+				})
 			},
 			function(callback) {
 				Classes.remove({

@@ -33,7 +33,7 @@ router.route("/reset")
 				});
 			},
 			function(current_class, callback) {
-				GroupStudents.remove({
+				GroupStudents.deleteMany({
 					"Group": {
 						$in: current_class.Groups
 					}
@@ -45,7 +45,7 @@ router.route("/reset")
 				})
 			},
 			function(current_class, callback) {
-				Groups.remove({
+				Groups.deleteMany({
 					"Class": current_class._id
 				}).exec(function (err) {
 					if(err) {
@@ -55,7 +55,7 @@ router.route("/reset")
 				})
 			},
 			function(current_class, callback) {
-				Tasks.remove({
+				Tasks.deleteMany({
 					"Class": current_class._id
 				}).exec(function (err) {
 					if(err) {

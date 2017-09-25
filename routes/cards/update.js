@@ -24,16 +24,26 @@ router.route("/update")
 				});
 			},
 			function(card, callback) {
-				console.log(req.files);
-				if (!req.files) {
+				if(!req.body.Picture) {
 					return callback(null, card);
-					//return res.status(400).send('No files were uploaded.');
 				}
- 				var Picture = req.files.Picture;
+
+			  var matches = req.body.Picture.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+			    response = {};
+
+			  if (matches.length !== 3) {
+			    return new Error('Invalid input string');
+			  }
+
+			  response.type = matches[1];
+			  response.data = new Buffer(matches[2], 'base64');
+
  				var timestamp = new Date().getTime();
  				var fname = 'cards/' + cardData.Creator + '_' + timestamp + '.png';
-				Picture.mv('public/' + fname, function(err) {
-					if (err) {
+
+				require("fs").writeFile('public/' + fname, response.data, 'base64', function(err) {
+					console.log(err);
+					if(err) {
 						return res.status(500).send(err);
 					}
 					fs.unlink('public/' + card.Picture, function(err) {
@@ -58,6 +68,7 @@ router.route("/update")
 				card.GoldCost = cardData.GoldCost;
 				card.Actions = cardData.Actions;
 				card.Creator = cardData.Creator;
+				card.BackgroundInfo = cardData.BackgroundInfo;
 				card.Approved = false;
 				card.save(function(err, doc) {
 					if (err) {

@@ -32,6 +32,10 @@ var cardSchema = new mongoose.Schema({
 			type: Number,
 			default: 1
 		},
+		BackgroundInfo: {
+			type: String,
+			default: ''
+		},
 		Actions: [{
 			Keyword: {
 				type: String,

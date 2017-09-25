@@ -42,6 +42,7 @@ var students = require('./routes/students');
 var tasks = require('./routes/tasks');
 var cards = require('./routes/cards');
 var marks = require('./routes/marks');
+var marketplace = require('./routes/marketplace');
 
 
 
@@ -90,6 +91,7 @@ app.use('/api/games', games);
 app.use('/api/cards', tokenVerification);
 app.use('/api/cards', cards);
 app.use('/api/marks', marks);
+app.use('/api/marketplace', marketplace);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
