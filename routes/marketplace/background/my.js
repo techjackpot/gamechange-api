@@ -12,7 +12,11 @@ router.route("/my")
 .post(function(req, res, next) {
 	async.waterfall([
 			function(callback) {
-				OwnedBackgrounds.find({Student: req.body.Student}).exec(function (err, docs) {
+				var cond = {};
+				if(req.body.Student) {
+					cond['Student'] = req.body.Student;
+				}
+				OwnedBackgrounds.find(cond).exec(function (err, docs) {
 					if (err) {
 						var errString = "Something bad happened";
 						var errObject = helper.constructErrorResponse(ERR_CODE.UNKNOWN, errString, 500);

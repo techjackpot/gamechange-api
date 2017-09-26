@@ -39,7 +39,7 @@ var cardSchema = new mongoose.Schema({
 		Actions: [{
 			Keyword: {
 				type: String,
-				enum: ["", "Add Points", "Subtract Points", "Add Gold", "Subtract Gold", "Add Cards", "Subtract Cards", "Defend Negative", "Perform Action", "Persist", "Activation Time", "Add Friend", "Any Mark", "Specific Mark", "Any Title", "Any Background", "Any Points Value Over", "Any Points Value Under", "Any Gold Value Over", "Any Gold Value Below"],
+				enum: ["", "Add Points", "Subtract Points", "Add Gold", "Subtract Gold", "Add Cards", "Subtract Cards", "Defend Negative", "Perform Action", "Persist", "Activation Time", "Add Friend", "Any Mark", "Any Mark Over", "Any Mark Under", "Specific Mark1", "Specific Mark1 Over", "Specific Mark1 Under", "Specific Mark2", "Specific Mark2 Over", "Specific Mark2 Under", "Specific Mark3", "Specific Mark3 Over", "Specific Mark3 Under", "Any Title", "Any Background", "Any Points Value Over", "Any Points Value Under", "Any Gold Value Over", "Any Gold Value Under"],
 				default: ''
 			},
 			Target: {
