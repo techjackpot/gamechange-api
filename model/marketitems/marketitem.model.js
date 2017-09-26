@@ -17,6 +17,23 @@ var ItemTitleSchema = new mongoose.Schema({
 
 var itemTitleModelSchema = mongoose.model('ItemTitles', ItemTitleSchema, 'ItemTitles');
 
+var OwnedTitleSchema = new mongoose.Schema({
+		Student: {
+			type: mongoose.Schema.ObjectId,
+			ref: 'Users'
+		},
+		Title: {
+			type: mongoose.Schema.ObjectId,
+			ref: 'ItemTitles'
+		}
+	}, {
+	  timestamps: true,
+	  autoIndex: false
+	}
+);
+
+var ownedTitleModelSchema = mongoose.model('OwnedTitles', OwnedTitleSchema, 'OwnedTitles');
+
 var ItemBackgroundSchema = new mongoose.Schema({
 		Picture: {
 			type: String,
@@ -33,7 +50,26 @@ var ItemBackgroundSchema = new mongoose.Schema({
 );
 var itemBackgroundModelSchema = mongoose.model('ItemBackgrounds', ItemBackgroundSchema, 'ItemBackgrounds');
 
+var OwnedBackgroundSchema = new mongoose.Schema({
+		Student: {
+			type: mongoose.Schema.ObjectId,
+			ref: 'Users'
+		},
+		Background: {
+			type: mongoose.Schema.ObjectId,
+			ref: 'ItemBackgrounds'
+		}
+	}, {
+	  timestamps: true,
+	  autoIndex: false
+	}
+);
+
+var ownedBackgroundModelSchema = mongoose.model('OwnedBackgrounds', OwnedBackgroundSchema, 'OwnedBackgrounds');
+
 module.exports = {
 	ItemTitles: itemTitleModelSchema,
-	ItemBackgrounds: itemBackgroundModelSchema
+	ItemBackgrounds: itemBackgroundModelSchema,
+	OwnedTitles: ownedTitleModelSchema,
+	OwnedBackgrounds: ownedBackgroundModelSchema
 }

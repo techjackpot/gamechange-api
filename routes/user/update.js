@@ -12,6 +12,7 @@ var userCommon = require('../../libs/user/usercommon');
 router.route("/update")
 
 .post(function(req, res, next) {
+		console.log(req.body);
 	async.waterfall([
 
 			function(callback) {

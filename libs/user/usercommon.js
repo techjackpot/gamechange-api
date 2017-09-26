@@ -54,10 +54,14 @@ UserCommon.checkPermissionExists = function(User, callback) {
 }
 
 UserCommon.updateUser = function(UserID, Obj, callback) {
+    console.log(UserID, 'this man');
+    console.log(Obj);
     async.waterfall([
         async.apply(UserCommon.checkExists, UserID),
         UserCommon.checkPermissionExists,
         function(permission, user, callback) {
+            console.log(user, 'here we are');
+            console.log(permission);
             async.parallel([
                     function(callback) {
 
@@ -82,6 +86,7 @@ UserCommon.updateUser = function(UserID, Obj, callback) {
 
                     },
                     function(callback) {
+                        console.log(Obj.Data);
                         for (var key in Obj.Data) {
                             if (!Obj.Data.hasOwnProperty(key)) {
                                 continue;
@@ -221,6 +226,7 @@ UserCommon.getUser = function(RequesterUserID, UserID, callback) {
                         _id: UserID
                     })
                     .select(selectionString)
+                    .populate('Title').populate('Background')
                     .exec(function(err, doc) {
                         if (err)
                             return callback(err);

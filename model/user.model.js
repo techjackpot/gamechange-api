@@ -29,6 +29,14 @@ var UserSchema = new mongoose.Schema({
     DOB: schemaTypes.dobSchema,
     Gender: schemaTypes.genderSchema,
     Role: schemaTypes.roleSchema,
+    Title: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'ItemTitles'
+    },
+    Background: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'ItemBackgrounds'
+    },
     IsConvenor: {
         type: Boolean,
         default: false
@@ -100,6 +108,14 @@ var PermissionsSchema = new mongoose.Schema({
         default: permissions.getDefaultSchema(permissionsEnum.Public, false)
     },
     IsConvenor: {
+        type: permissions.getAccesibilitySchema(),
+        default: permissions.getDefaultSchema(permissionsEnum.Public, false)
+    },
+    Title: {
+        type: permissions.getAccesibilitySchema(),
+        default: permissions.getDefaultSchema(permissionsEnum.Public, false)
+    },
+    Background: {
         type: permissions.getAccesibilitySchema(),
         default: permissions.getDefaultSchema(permissionsEnum.Public, false)
     }
