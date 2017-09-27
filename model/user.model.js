@@ -48,6 +48,10 @@ var UserSchema = new mongoose.Schema({
     Golds: {
         type: Number,
         default: 0
+    },
+    StudentNo: {
+        type: String,
+        default: ''
     }
     // At some point we'll need to move this somewhere else i think.
     // DeviceID: {
@@ -116,6 +120,10 @@ var PermissionsSchema = new mongoose.Schema({
         default: permissions.getDefaultSchema(permissionsEnum.Public, false)
     },
     Background: {
+        type: permissions.getAccesibilitySchema(),
+        default: permissions.getDefaultSchema(permissionsEnum.Public, false)
+    },
+    StudentNo: {
         type: permissions.getAccesibilitySchema(),
         default: permissions.getDefaultSchema(permissionsEnum.Public, false)
     }

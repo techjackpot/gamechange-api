@@ -240,6 +240,7 @@ router.route("/register")
                         newUser.DisplayPicture = 'avatars/default/man.jpg';
                         newUser.Title = null;
                         newUser.Background = null;
+                        newUser.StudentNo = req.body.StatusNo || '';
                         for (var i = 0; i < savedPassports.length; i++) {
 
 
