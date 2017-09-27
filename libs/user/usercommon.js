@@ -164,6 +164,7 @@ UserCommon.getAllUsers = function(RequesterUserID, ids, callback) {
                 user
                     .find()
                     .select(selectionString)
+                    .populate('Title').populate('Background')
                     .exec(function(err, docs) {
                         if (err)
                             return callback(err);
@@ -177,6 +178,7 @@ UserCommon.getAllUsers = function(RequesterUserID, ids, callback) {
                 user
                     .find({ _id: { $in: ids }})
                     .select(selectionString)
+                    .populate('Title').populate('Background')
                     .exec(function(err, docs) {
                         if (err)
                             return callback(err);
