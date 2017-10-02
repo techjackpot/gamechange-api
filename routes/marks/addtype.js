@@ -22,6 +22,7 @@ router.route("/addtype")
 				newMarkType.MinValue = req.body.MinValue;
 				newMarkType.Class = req.body.Class;
 				newMarkType.ForGroup = req.body.ForGroup;
+				newMarkType.ForRollCall = req.body.ForRollCall;
 				newMarkType.save(function(err, doc) {
 					if (err) {
 						return callback(err);

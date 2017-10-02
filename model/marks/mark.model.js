@@ -25,6 +25,10 @@ var marktypeSchema = new mongoose.Schema({
 			type: Boolean,
 			default: false
 		},
+		ForRollCall: {
+			type: Boolean,
+			default: false
+		},
 		Class: {
 			type: mongoose.Schema.ObjectId,
 			ref: 'Classes'
