@@ -2,33 +2,26 @@ var express = require('express');
 var jwt = require('jsonwebtoken');
 var async = require('async');
 var helper = require('../../additional-code/helperfunctions');
-var Classes = require('../../model/classes/class.model').Classes;
-var Groups = require('../../model/classes/class.model').Groups;
 var Tasks = require('../../model/tasks/task.model').Tasks;
 var router = express.Router();
-var debug = require('debug')('classes');
+var debug = require('debug')('tasks');
 var ERR_CODE = require('../../error_codes');
 
 
 
-router.route("/list")
+router.route("/delete")
 
 .post(function(req, res, next) {
 	async.waterfall([
 			function(callback) {
-				var class_id = req.body.class_id;
-				Tasks.find({ "Class": class_id }).sort({createdAt: -1}).exec(function (err, docs) {
+				Tasks.remove({ _id: req.body._id }).exec(function (err) {
 					if (err) {
 						var errString = "Something bad happened";
 						var errObject = helper.constructErrorResponse(ERR_CODE.UNKNOWN, errString, 500);
 						debug(errString);
-						callback(errObject);
-					} else if (docs.length > 0) {
-						callback(null, docs);
-
+						return callback(errObject);
 					} else {
-
-						callback(null, []);
+						return callback();
 					}
 				});
 			}
@@ -40,7 +33,7 @@ router.route("/list")
 
 			JSONresponse.err = err;
 			if (!err) {
-				JSONresponse.Tasks = result;
+				JSONresponse.Result = 'successfully removed Task';
 			}
 
 			res.status(StatusCode).json(JSONresponse);
