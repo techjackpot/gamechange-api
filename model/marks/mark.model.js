@@ -55,7 +55,11 @@ var markhistorySchema = new mongoose.Schema({
 		},
 		Attendance: {
 			type: Boolean,
-			default: false,
+			default: false
+		},
+		Explained: {
+			type: Boolean,
+			default: false
 		},
 		Week: {
 			type: Number,
