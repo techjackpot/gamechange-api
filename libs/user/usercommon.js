@@ -54,14 +54,14 @@ UserCommon.checkPermissionExists = function(User, callback) {
 }
 
 UserCommon.updateUser = function(UserID, Obj, callback) {
-    console.log(UserID, 'this man');
-    console.log(Obj);
+    // console.log(UserID, 'this man');
+    // console.log(Obj);
     async.waterfall([
         async.apply(UserCommon.checkExists, UserID),
         UserCommon.checkPermissionExists,
         function(permission, user, callback) {
-            console.log(user, 'here we are');
-            console.log(permission);
+            // console.log(user, 'here we are');
+            // console.log(permission);
             async.parallel([
                     function(callback) {
 
@@ -86,7 +86,7 @@ UserCommon.updateUser = function(UserID, Obj, callback) {
 
                     },
                     function(callback) {
-                        console.log(Obj.Data);
+                        // console.log(Obj.Data);
                         for (var key in Obj.Data) {
                             if (!Obj.Data.hasOwnProperty(key)) {
                                 continue;

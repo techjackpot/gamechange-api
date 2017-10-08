@@ -241,6 +241,7 @@ router.route("/register")
                         newUser.Title = null;
                         newUser.Background = null;
                         newUser.StudentNo = req.body.StatusNo || '';
+                        newUser.IsPrivate = false;
                         for (var i = 0; i < savedPassports.length; i++) {
 
 

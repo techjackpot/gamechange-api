@@ -22,6 +22,7 @@ router.route("/create")
 				newClass.TotalWeeks = req.body.TotalWeeks;
 				newClass.Teachers = req.body.Teachers;
 				newClass.Subject = req.body.Subject;
+				newClass.Unit = req.body.Unit;
 				newClass.save(function(err, doc) {
 					if (err) {
 

@@ -41,6 +41,10 @@ var UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    IsPrivate: {
+        type: Boolean,
+        default: false
+    },
     Points: {
         type: Number,
         default: 0
@@ -124,6 +128,10 @@ var PermissionsSchema = new mongoose.Schema({
         default: permissions.getDefaultSchema(permissionsEnum.Public, false)
     },
     StudentNo: {
+        type: permissions.getAccesibilitySchema(),
+        default: permissions.getDefaultSchema(permissionsEnum.Public, false)
+    },
+    IsPrivate: {
         type: permissions.getAccesibilitySchema(),
         default: permissions.getDefaultSchema(permissionsEnum.Public, false)
     }

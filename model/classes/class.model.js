@@ -79,6 +79,10 @@ var classSchema = new mongoose.Schema({
 			type: String,
 			default: ''
 		},
+		Unit: {
+			type: String,
+			default: ''
+		},
 		Collection: [{
 			type: mongoose.Schema.ObjectId,
 			ref: 'Cards'
